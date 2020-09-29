@@ -34,6 +34,3 @@ var editor = CodeMirror(document.getElementById('codemirror'), {
     marker.innerHTML = '●';
     return marker;
   }
-
-  let runBtn = document.getElementById('runBtn')
-  runBtn.onclick = (e) => console.log(editor.getValue())
