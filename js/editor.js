@@ -4,7 +4,7 @@ let breakpoints = [];
 CodeMirror.defineSimpleMode("simplemode", {
     // The start state contains the rules that are intially used
     start: [
-      {regex: /Load|Add|Push|Pop|Store|StoreX|StoreY|LoadX|LoadY|Subt|ShiftL|ShiftR|Output|Halt|Jump|JumpI|JnS|AddI|SubtI/,
+      {regex: /Load|Add|Push|Pop|StoreX|StoreY|Store|LoadX|LoadY|Subt|ShiftL|ShiftR|Output|Halt|Jump|JumpI|JnS|AddI|SubtI|Input/,
        token: "keyword"},
       {regex: /DEC|HEX/, token: "atom"},
       {regex: /0x[a-f\d]+|[-+]?(?:\.\d+|\d+\.?\d*)(?:e[-+]?\d+)?/i,

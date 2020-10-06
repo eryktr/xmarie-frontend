@@ -49,7 +49,7 @@
   </head>
 
   <body>
-    <header class="container-fluid">
+    <header class="container">
       <div class="jumbotron mb-0">
         <h1>XMARIE Assembly Toolset</h1>
         <p class="lead">
@@ -71,21 +71,29 @@
     
     <div class="container">
         <div class="row">
-            <div id="codemirror" class="container">
+            <div id="codemirror" class="col-md-10 mb-2">
             </div>
+
+            <div class="col-md-2">
+              Input
+              <textarea id="inputArea" style="height: 90%" value=""></textarea>
+            </div>
+          </div>
         </div>
+
+    </div>
         
-
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <button id="runBtn" class="btn btn-primary">Run</button>
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-10 text-center">
+                <button id="runBtn" class="btn btn-success">Run</button>
                 <button id="debugBtn" class="btn btn-primary">Debug</button>
-                <button id="profileBtn" class="btn btn-primary">Profile</button>
+                <button id="profileBtn" class="btn btn-danger">Profile</button>
             </div>
         </div>
 
         <div class="row">
-          <div class="col-md-4 text-center">
+          <div class="col-md-3 text-center">
             <ul class="list-unstyled border">
               <li>AC: <span id="AC">0</span></li>
               <li>PC: <span id="PC">0</span></li>
@@ -94,23 +102,25 @@
               <li>IR: <span id="IR">0</span></li>
             </ul>
           </div>
-          <div class="col-md-4 text-center">
+          <div class="col-md-3 text-center">
             <ul class="list-unstyled border">
               <li>X: <span id="X">0</span></li>
               <li>Y: <span id="Y">0</span></li>
             </ul>
           </div>
-          <div class="col-md-4 text-center">
+          <div class="col-md-3 text-center">
             Stack: <span id="stack"></span>
           </div>
+          <div class="col-md-3 text-center">
+            Output: <div id="output"></div>
+          </div>
         </div>
-        
-        
-
     </div>
     
     <script src="js/editor.js"></script>
+    <script src="js/state.js"></script>
     <script src="js/requests.js"></script>
     <script src="js/main.js"></script>
+    
   </body>
 </html>
