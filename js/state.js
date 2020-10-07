@@ -6,7 +6,7 @@ const IR_SPAN = document.getElementById('IR');
 const X_SPAN = document.getElementById('X');
 const Y_SPAN = document.getElementById('Y');
 const OUTPUT_SPAN = document.getElementById('output');
-
+const STACK_SPAN = document.getElementById('stack');
 
 const REG_NAME_TO_SPAN = {
     'AC': AC_SPAN,
@@ -28,4 +28,10 @@ function updateState(snapshot) {
         output += line + "\n";
     }
     OUTPUT_SPAN.innerText = output;
+
+    let stack = ""
+    for (let line of snapshot['stack']) {
+        stack += line + "\n";
+    }
+    STACK_SPAN.innerText = stack;
 }

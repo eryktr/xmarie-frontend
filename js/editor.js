@@ -23,7 +23,10 @@ var editor = CodeMirror(document.getElementById('codemirror'), {
   editor.on("gutterClick", function(cm, n) {
     var info = cm.lineInfo(n);
     if (!info.gutterMarkers) {
-        breakpoints.push(n)
+        breakpoints.push(n);
+    } else {
+      let idx = breakpoints.indexOf(n);
+      breakpoints.splice(idx, 1);
     }
     cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
   });

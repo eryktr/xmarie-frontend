@@ -7,11 +7,13 @@ function getPostData(debug) {
   return {
     code: editor.getValue(),
     debug: debug,
-    input: INPUT_AREA.value
+    input: INPUT_AREA.value,
+    breakpoints: breakpoints.sort((a, b) => a - b),
   };
 }
 
 function runCode() {
+  console.log(getPostData(true))
   axios
     .post(RUN_URL, getPostData(false))
     .then(function (response) {
