@@ -9,6 +9,8 @@ function getPostData(debug) {
     debug: debug,
     input: INPUT_AREA.value,
     breakpoints: breakpoints.sort((a, b) => a - b),
+    token: getToken(),
+    action: "step",
   };
 }
 
