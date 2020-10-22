@@ -3,21 +3,20 @@ const RUN_URL = BASE_URL + "run";
 
 const INPUT_AREA = document.getElementById('inputArea');
 
-function getPostData(debug) {
+function getPostData(debug, action) {
   return {
     code: editor.getValue(),
     debug: debug,
     input: INPUT_AREA.value,
     breakpoints: breakpoints.sort((a, b) => a - b),
     token: getToken(),
-    action: "step",
+    action: action,
   };
 }
 
 function runCode() {
-  console.log(getPostData(true))
   axios
-    .post(RUN_URL, getPostData(false))
+    .post(RUN_URL, getPostData(false, 'run'))
     .then(function (response) {
       console.log(response);
       updateState(response['data']['snapshots'][0]);
@@ -28,10 +27,13 @@ function runCode() {
 }
 
 function debugCode() {
+  console.log(getPostData(true, 'debug'))
   axios
-    .post(RUN_URL, getPostData(true))
+    .post(RUN_URL, getPostData(true, 'debug'))
     .then(function (response) {
       console.log(response);
+      highlightLine(response['data']['breakpoint']['original_lineno']);
+      updateState(response['data']['snapshot']);
     })
     .catch(function (error) {
       console.log(error);

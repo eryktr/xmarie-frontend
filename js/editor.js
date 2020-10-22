@@ -23,9 +23,9 @@ var editor = CodeMirror(document.getElementById('codemirror'), {
   editor.on("gutterClick", function(cm, n) {
     var info = cm.lineInfo(n);
     if (!info.gutterMarkers) {
-        breakpoints.push(n);
+        breakpoints.push(n+1);
     } else {
-      let idx = breakpoints.indexOf(n);
+      let idx = breakpoints.indexOf(n+1);
       breakpoints.splice(idx, 1);
     }
     cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
@@ -36,4 +36,9 @@ var editor = CodeMirror(document.getElementById('codemirror'), {
     marker.style.color = "#822";
     marker.innerHTML = '●';
     return marker;
+  }
+
+
+  function highlightLine(lineNum) {
+    editor.addLineClass(lineNum - 1, "background", "bg-danger")
   }
