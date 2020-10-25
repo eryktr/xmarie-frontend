@@ -1,5 +1,5 @@
-
 let breakpoints = [];
+let lastMarkedLine = 0;
 
 CodeMirror.defineSimpleMode("simplemode", {
     // The start state contains the rules that are intially used
@@ -39,6 +39,20 @@ var editor = CodeMirror(document.getElementById('codemirror'), {
   }
 
 
-  function highlightLine(lineNum) {
-    editor.addLineClass(lineNum - 1, "background", "bg-danger")
+  function highlightLineAsBreakpointHit(lineNum) {
+    editor.addLineClass(lineNum - 1, "background", "bg-danger");
+    lastMarkedLine = lineNum;
+  }
+
+  function clearBreakpointHighlight(lineNum) {
+    console.log("Clearing ", lineNum);
+    editor.removeLineClass(lineNum - 1, "background", "bg-danger");
+  }
+
+  function highlightLineAsExecuted(lineNum) {
+    editor.addLineClass(lineNum - 1, "background", "bg-warning");
+  }
+
+  function clearExecutedHighlight(lineNum) {
+    editor.removeLineClass(lineNum - 1, "background", "bg-warning");
   }

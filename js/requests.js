@@ -14,6 +14,13 @@ function getPostData(debug, action) {
   };
 }
 
+function getContinuePostData(token) {
+  return {
+    token: getToken(),
+    action: 'continue',
+  }
+}
+
 function runCode() {
   axios
     .post(RUN_URL, getPostData(false, 'run'))
@@ -32,8 +39,31 @@ function debugCode() {
     .post(RUN_URL, getPostData(true, 'debug'))
     .then(function (response) {
       console.log(response);
-      highlightLine(response['data']['breakpoint']['original_lineno']);
+      highlightLineAsBreakpointHit(response['data']['breakpoint']['original_lineno']);
       updateState(response['data']['snapshot']);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+
+function step() {
+
+}
+
+function continueDebug() {
+  data = getContinuePostData(getToken());
+  axios
+    .post(RUN_URL, data)
+    .then(function (response) {
+      console.log(response);
+      clearBreakpointHighlight(lastMarkedLine);
+      console.log(response['data']['breakpointHit']);
+      if (response['data']['breakpointHit']) {
+        highlightLineAsBreakpointHit(response['data']['breakpoint']['original_lineno']);
+        updateState(response['data']['snapshot']);
+      }
     })
     .catch(function (error) {
       console.log(error);
