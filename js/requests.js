@@ -21,6 +21,13 @@ function getContinuePostData(token) {
   }
 }
 
+function getStepPostData(token) {
+  return {
+    token: getToken(),
+    action: 'step',
+  }
+}
+
 function runCode() {
   axios
     .post(RUN_URL, getPostData(false, 'run'))
@@ -34,7 +41,6 @@ function runCode() {
 }
 
 function debugCode() {
-  console.log(getPostData(true, 'debug'))
   axios
     .post(RUN_URL, getPostData(true, 'debug'))
     .then(function (response) {
@@ -49,7 +55,20 @@ function debugCode() {
 
 
 function step() {
-
+  data = getStepPostData(getToken())
+  console.log("sending")
+  console.log(data)
+  axios
+    .post(RUN_URL, data)
+    .then(function (response) {
+      console.log(response);
+      clearExecutedHighlight(lastExecutedLine)
+      highlightLineAsExecuted(response['data']['original_lineno']);
+      updateState(response['data']['snapshot']);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
 function continueDebug() {

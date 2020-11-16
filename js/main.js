@@ -2,10 +2,13 @@ document.cookie = `token=${Date.now()}`
 
 let runBtn = document.getElementById('runBtn');
 let debugBtn = document.getElementById('debugBtn');
+let stepBtn = document.getElementById('stepBtn')
 
-runBtn.onclick = (e) => runCode();
+
+runBtn.onclick = e => runCode();
 debugBtn.onclick = e => debugCode();
 continueBtn.onclick = e => continueDebug();
+stepBtn.onclick = e => step();
 
 function getToken() {
     var name = "token" + "=";

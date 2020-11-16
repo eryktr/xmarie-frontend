@@ -1,5 +1,6 @@
 let breakpoints = [];
 let lastMarkedLine = 0;
+let lastExecutedLine = 0;
 
 CodeMirror.defineSimpleMode("simplemode", {
     // The start state contains the rules that are intially used
@@ -51,6 +52,7 @@ var editor = CodeMirror(document.getElementById('codemirror'), {
 
   function highlightLineAsExecuted(lineNum) {
     editor.addLineClass(lineNum - 1, "background", "bg-warning");
+    lastExecutedLine = lineNum;
   }
 
   function clearExecutedHighlight(lineNum) {

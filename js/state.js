@@ -20,7 +20,8 @@ const REG_NAME_TO_SPAN = {
 
 function updateState(snapshot) {
     for (const [regname, span] of Object.entries(REG_NAME_TO_SPAN)) {
-        span.innerHTML = snapshot[regname];
+        dict = snapshot[regname]
+        span.innerHTML = `${dict['dec']} (${dict['hex']})`;
     }
 
     let output = ""
@@ -30,8 +31,8 @@ function updateState(snapshot) {
     OUTPUT_SPAN.innerText = output;
 
     let stack = ""
-    for (let line of snapshot['stack']) {
-        stack += line + "\n";
+    for (let elem of snapshot['stack']) {
+        stack += `${elem['dec']} (${elem['hex']})\n`;
     }
     STACK_SPAN.innerText = stack;
 }
