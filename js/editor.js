@@ -5,7 +5,7 @@ let lastExecutedLine = 0;
 CodeMirror.defineSimpleMode("simplemode", {
     // The start state contains the rules that are intially used
     start: [
-      {regex: /Load|Add|Push|Pop|StoreX|StoreY|Store|LoadX|LoadY|Subt|ShiftL|ShiftR|Output|Halt|Jump|JumpI|JnS|AddI|SubtI|Input/,
+      {regex: /Load|Add|Push|Pop|StoreX|StoreY|Store|LoadX|LoadY|Subt|ShiftL|ShiftR|Output|Halt|Jump|JumpI|JnS|AddI|SubtI|Input|Skipcond/,
        token: "keyword"},
       {regex: /DEC|HEX/, token: "atom"},
       {regex: /0x[a-f\d]+|[-+]?(?:\.\d+|\d+\.?\d*)(?:e[-+]?\d+)?/i,
@@ -16,7 +16,7 @@ CodeMirror.defineSimpleMode("simplemode", {
   
 
 var editor = CodeMirror(document.getElementById('codemirror'), {
-    value: "Load X\nAdd Y\nOutput\nHalt\nX, DEC 10\nY, HEX 0xFFFF\n",
+    value: "Load X\nLoop, Add Y\nSkipcond 400\nJump Loop\nOutput\nHalt\nX, DEC 10\nY, HEX 0xFFFFF\n",
     mode:  "simplemode",
     lineNumbers: true,
     gutters: ["CodeMirror-linenumbers", "breakpoints"]
