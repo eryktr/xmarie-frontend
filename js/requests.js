@@ -28,16 +28,12 @@ function getStepPostData(token) {
   }
 }
 
+
+let getRunSnapshot = axios.post(RUN_URL, getPostData(false, 'run'))
+                          .then(resp => resp['data']['snapshots'][0]);
+
 function runCode() {
-  axios
-    .post(RUN_URL, getPostData(false, 'run'))
-    .then(function (response) {
-      console.log(response);
-      updateState(response['data']['snapshots'][0]);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  getRunSnapshot.then(ss => updateState(ss))
 }
 
 function debugCode() {
@@ -87,4 +83,20 @@ function continueDebug() {
     .catch(function (error) {
       console.log(error);
     });
+}
+
+
+function profile() {
+  getRunSnapshot.then(ss => {
+    console.log(ss);
+    updateState(ss);
+    let report = getProfileReport(
+      ss['cost_of_executed_instrs'],
+      ss['instr_to_call_count'],
+      ss['lineno_to_num_calls']
+    );
+    document.getElementById('profileReport').innerHTML = report;
+  })
+  
+  
 }
