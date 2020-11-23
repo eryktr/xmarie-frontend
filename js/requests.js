@@ -29,11 +29,18 @@ function getStepPostData(token) {
 }
 
 
-let getRunSnapshot = axios.post(RUN_URL, getPostData(false, 'run'))
-                          .then(resp => resp['data']['snapshots'][0]);
 
+function getRunSnapshot() {
+  let getData = (new Promise((resolve, reject) => {
+    data = getPostData(false, 'run');
+    resolve(data);
+  }))
+  return getData.then(data => axios.post(RUN_URL, data))
+                .then(resp => {console.log(resp); return resp['data']['snapshots'][0]});
+
+}
 function runCode() {
-  getRunSnapshot.then(ss => updateState(ss))
+  getRunSnapshot().then(ss => updateState(ss))
 }
 
 function debugCode() {
@@ -59,8 +66,10 @@ function step() {
     .then(function (response) {
       console.log(response);
       clearExecutedHighlight(lastExecutedLine)
-      highlightLineAsExecuted(response['data']['original_lineno']);
-      updateState(response['data']['snapshot']);
+      if (response['data']['status'] == 'hit') {
+        highlightLineAsExecuted(response['data']['original_lineno']);
+        updateState(response['data']['snapshot']);
+      }
     })
     .catch(function (error) {
       console.log(error);
@@ -87,7 +96,7 @@ function continueDebug() {
 
 
 function profile() {
-  getRunSnapshot.then(ss => {
+  getRunSnapshot().then(ss => {
     console.log(ss);
     updateState(ss);
     let report = getProfileReport(
@@ -97,6 +106,5 @@ function profile() {
     );
     document.getElementById('profileReport').innerHTML = report;
   })
-  
   
 }

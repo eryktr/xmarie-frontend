@@ -1,4 +1,3 @@
-document.cookie = `token=${Date.now()}`
 
 let runBtn = document.getElementById('runBtn');
 let debugBtn = document.getElementById('debugBtn');
@@ -26,3 +25,5 @@ function getToken() {
     }
     return "";
     }
+
+document.cookie = `token=${Date.now()}`

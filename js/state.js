@@ -7,6 +7,8 @@ const X_SPAN = document.getElementById('X');
 const Y_SPAN = document.getElementById('Y');
 const OUTPUT_SPAN = document.getElementById('output');
 const STACK_SPAN = document.getElementById('stack');
+const VARIABLES_DIV = document.getElementById('variables');
+
 
 const REG_NAME_TO_SPAN = {
     'AC': AC_SPAN,
@@ -35,4 +37,10 @@ function updateState(snapshot) {
         stack += `${elem['dec']} (${elem['hex']})\n`;
     }
     STACK_SPAN.innerText = stack;
+    let variablesOutput = "";
+    console.log(snapshot['variables']);
+    for (let [varname, varval] of Object.entries(snapshot['variables'])) {
+        variablesOutput += `${varname}: ${varval} <br>`;
+    }
+    VARIABLES_DIV.innerHTML = variablesOutput;
 }
