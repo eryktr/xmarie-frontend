@@ -58,3 +58,8 @@ var editor = CodeMirror(document.getElementById('codemirror'), {
   function clearExecutedHighlight(lineNum) {
     editor.removeLineClass(lineNum - 1, "background", "bg-warning");
   }
+
+
+  function getLine(lineNum) {
+    return editor.getDoc().getLine(lineNum);
+  }
