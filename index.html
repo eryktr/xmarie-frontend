@@ -83,7 +83,11 @@
 
     </div>
         
+
     <div class="container">
+        <div class="row" id="errors", style="color:red">
+
+        </div>
         <div class="row mb-2">
             <div class="col-md-10 text-center">
                 <button id="runBtn" class="btn btn-success">Run</button>
@@ -101,6 +105,7 @@
 
         <div class="row">
           <div class="col-md-3">
+            <b>Internal registers</b>
             <ul class="list-unstyled border">
               <li style="display:flex">
                 <div style="width:20%">
@@ -150,7 +155,8 @@
             </ul>
           </div>
 
-          <div class="col-md-3 text-center">
+          <div class="col-md-2 text-center">
+            <b>General registers</b>
             <ul class="list-unstyled border">
               <li style="display:flex">
                 <div style="width:20%">
@@ -171,18 +177,24 @@
               </li>
             </ul>
           </div>
-          <div class="col-md-3 text-center">
-            Stack: <div id="stack"></div>
+          <div class="col-md-2 text-center">
+            <b>Variables</b> 
+            <div id="variables"></div>
           </div>
-          <div class="col-md-3 text-center">
-            Output: <div id="output"></div>
+          <div class="col-md-2 text-center">
+            <b>Stack</b> 
+            <div id="stack"></div>
+          </div>
+
+          <div class="col-md-2 text-center">
+            <b>Output</b>
+             <div id="output"></div>
           </div>
         </div>
     </div>
 
-    <div id="variables">
-      
-    </div>
+
+
     
     <script src="js/main.js"></script>
     <script src="js/editor.js"></script>

@@ -36,11 +36,21 @@ function getRunSnapshot() {
     resolve(data);
   }))
   return getData.then(data => axios.post(RUN_URL, data))
-                .then(resp => {console.log(resp); return resp['data']['snapshots'][0]});
+                .then(resp => {
+                  console.log(resp); 
+                  if (resp['data']['status'] == 'parsingError') {
+                    return Promise.reject(resp);
+                  }
+                  return resp['data']['snapshots'][0];
+                });
 
 }
 function runCode() {
   getRunSnapshot().then(ss => updateState(ss))
+                  .catch(data => {
+                    console.log('error occured :)')
+                    showErrors(data)
+                  });
 }
 
 function debugCode() {
@@ -48,8 +58,12 @@ function debugCode() {
     .post(RUN_URL, getPostData(true, 'debug'))
     .then(function (response) {
       console.log(response);
-      highlightLineAsBreakpointHit(response['data']['breakpoint']['original_lineno']);
-      updateState(response['data']['snapshot']);
+      if (response['data']['status'] == 'parsingError') {
+        showErrors(response)
+      } else {
+        highlightLineAsBreakpointHit(response['data']['breakpoint']['original_lineno']);
+        updateState(response['data']['snapshot']);
+      }
     })
     .catch(function (error) {
       console.log(error);
@@ -105,6 +119,6 @@ function profile() {
       ss['lineno_to_num_calls']
     );
     document.getElementById('profileReport').innerHTML = report;
-  })
+  }).catch(data => showErrors(data));
   
 }

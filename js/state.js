@@ -8,7 +8,7 @@ const Y_SPAN = document.getElementById('Y');
 const OUTPUT_SPAN = document.getElementById('output');
 const STACK_SPAN = document.getElementById('stack');
 const VARIABLES_DIV = document.getElementById('variables');
-
+const ERRORS_DIV = document.getElementById('errors');
 
 const REG_NAME_TO_SPAN = {
     'AC': AC_SPAN,
@@ -20,7 +20,17 @@ const REG_NAME_TO_SPAN = {
     'Y': Y_SPAN,
 }
 
+function errorsOccured(resp) {
+    return (resp['data']['status'] == 'parsingError');
+}
+
+function showErrors(resp) {
+    console.log(resp);
+    ERRORS_DIV.innerHTML += resp['data']['message'];
+}
+
 function updateState(snapshot) {
+    console.log(snapshot);
     for (const [regname, span] of Object.entries(REG_NAME_TO_SPAN)) {
         dict = snapshot[regname]
         span.innerHTML = `${dict['dec']} (${dict['hex']})`;

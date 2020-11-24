@@ -1,9 +1,10 @@
 function getProfileReport(totalCost, instrToCallCount, lineNumToCallCount) {
-    let report = "<h3>Profile Report </h3>";
+    let report = "";
     const numAllCalls = Object.values(lineNumToCallCount).reduce((a, b) => a + b);
-    report += `Total cost: ${totalCost} <br>`;
+    report += `<h3>Total cost: ${totalCost} <br></h3>`;
     report += "<h3> Number of executed instructions </h3>"
-    for (let [k, v] of Object.entries(instrToCallCount)) {
+    sortedInstrToCallCount = sortByVals(instrToCallCount);
+    for (let [k, v] of sortedInstrToCallCount) {
         report += `${k}: ${v}<br>`;
     }
     report += "<h3> Visualization </h3>"
@@ -23,7 +24,7 @@ function getProfileReport(totalCost, instrToCallCount, lineNumToCallCount) {
 function getColor(numCalls, numAllCalls) {
     const maxVal = 255;
     let ratio = numCalls / numAllCalls;
-    let red = Math.floor(ratio * maxVal)
+    let red = Math.min(Math.floor(ratio * maxVal + numCalls), 255);
     let r = toHex(red);
     let g = toHex(0);
     let b = toHex(255 - red);
@@ -36,6 +37,15 @@ function toHex(c) {
     return hex.length == 1 ? "0" + hex : hex;
   }
   
-  function rgbToHex(r, g, b) {
+function rgbToHex(r, g, b) {
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-  }
+}
+
+function sortByVals(obj) {
+    elems = [];
+    for (let [k, v] of Object.entries(obj)) {
+        elems.push([k, v]);
+    }
+    elems.sort((a, b) => b[1] - a[1]);
+    return elems;
+}
