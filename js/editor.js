@@ -16,7 +16,22 @@ CodeMirror.defineSimpleMode("simplemode", {
   
 
 var editor = CodeMirror(document.getElementById('codemirror'), {
-    value: "Load X\nLoop, Add Y\nSkipcond 400\nJump Loop\nOutput\nHalt\nX, DEC 10\nY, HEX 0xFFFFF\n",
+    value: "\
+Input\n\
+Store N\n\
+Loop, Load SUM\n\
+Add N\n\
+Store SUM\n\
+Load N\n\
+Add NEG_ONE\n\
+Store N\n\
+Skipcond 400\n\
+Jump Loop\n\
+Output\n\
+Halt\n\
+N, DEC 0\n\
+SUM, DEC 0\n\
+NEG_ONE, HEX 0xFFFFF\n",
     mode:  "simplemode",
     lineNumbers: true,
     gutters: ["CodeMirror-linenumbers", "breakpoints"]

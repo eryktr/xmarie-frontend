@@ -58,8 +58,11 @@ function debugCode() {
     .post(RUN_URL, getPostData(true, 'debug'))
     .then(function (response) {
       console.log(response);
-      if (response['data']['status'] == 'parsingError') {
+      status = response['data']['status'];
+      if (status == 'parsingError') {
         showErrors(response)
+      } else if (status == 'terminated') {
+        updateState(response['data']['snapshot']);
       } else {
         highlightLineAsBreakpointHit(response['data']['breakpoint']['original_lineno']);
         updateState(response['data']['snapshot']);
