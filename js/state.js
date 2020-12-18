@@ -49,8 +49,8 @@ function updateState(snapshot) {
     STACK_SPAN.innerText = stack;
     let variablesOutput = "";
     console.log(snapshot['variables']);
-    for (let [varname, varval] of Object.entries(snapshot['variables'])) {
-        variablesOutput += `${varname}: ${varval} <br>`;
+    for (let [name, val] of Object.entries(snapshot['variables'])) {
+        variablesOutput += `${name}: ${val['dec']} (${val['hex']}) <br>`;
     }
     VARIABLES_DIV.innerHTML = variablesOutput;
 }

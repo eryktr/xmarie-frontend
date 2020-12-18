@@ -9,12 +9,22 @@ function getProfileReport(totalCost, instrToCallCount, lineNumToCallCount) {
     }
     report += "<h3> Visualization </h3>"
     report += '<div style="text-align:center">'
+    report += '<table>';
     for (let [num, count] of Object.entries(lineNumToCallCount)) {
         report += `
-        <span style="color:${getColor(count, numAllCalls)}">
-            ${getLine(num - 1)} ${count} <br> 
-        </span>`
+        <tr>
+        <td style="color:${getColor(count, numAllCalls)}; text-align:right; padding: 0 15px">
+            ${count}
+        </td>
+        <td style="color:${getColor(count, numAllCalls)}; text-align:left; padding: 0 15px">
+            ${getLine(num - 1)}
+        </td> 
+        </span>
+        </tr>
+        `
+        
     }
+    report += '</table>'
     report += "</div>"
     return report;
     
